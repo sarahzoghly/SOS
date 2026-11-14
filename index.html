@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/levels.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <canvas id="starfield"></canvas>
+    <div id="title-screen">
+      <button class="button" id="fullscreen"><img src="assets/images/title/fullscreen.png" height="30px" width="30px"></button>
+      <h1 class="title">Orbit</h1>
+      <div id="buttons">
+        <button class="button" id="start-button">Start</button>
+        <button class="button" id="settings-button">Settings</button>
+        <button class="button" id="about-button">About</button>
+      </div>
+    </div>
+    <div id="levels-screen">
+        <button class="button" id="home"><img src="assets/images/home.png" height="30px" width="30px"></button>
+        <h1 class="title" id="levels-title">Where do you want to go?</h1>
+        <div id="levels">
+            <button class="planet" id="moon-button">
+                <img src="assets/images/moon.gif" height="30px" width="30px">
+                <p class="planet-name">Moon</p>
+            </button>
+            <button class="planet" id="mars-button">
+                <img src="assets/images/mars.gif" height="30px" width="30px">
+                <p class="planet-name">Mars</p>
+            </button>
+        </div>
+    </div>
+    <div id="about-screen">
+      <button class="button" id="home2"><img src="assets/images/home.png" height="30px" width="30px"></button>
+      <div class="sky">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+      <div class="content">
+        <h1 id="about-header">About</h1>
+        <p class="aboutGame">Orbit is a webplayable interactive story about 4 rovers:</p>
+        <p class="aboutGame"><span style="color: rgb(190, 0, 125)">Opportunity & Spirit</span>, twins who explored <span style="color: rgb(190, 0, 125)">Mars</span>.</p>
+        <p class="point-header">Credits</p>
+        <p class="aboutGame"><a href="https://sarahzoghly.github.io/personal-website/" target="_blank">Sarah Ibrahim Zoghly:</a> Artist and Web Developer.</p>
+        <p class="aboutGame"><a href="https://github.com/MaryomaSalah" target="_blank">Omar Ibrahim Zoghly:</a> gathering data and voiceover.</p>
+        <p class="aboutGame"><a href="https://github.com/malakzain1101" target="_blank">Saif Ibrahim Zoghly:</a> voiceover and web developer.</p>        
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script type="module" src="src/title.js"></script>
+    <script type="module" src="src/levels.js"></script>
+    <script type="module" src="src/about.js"></script>
+    <script type="module" src="main.js"></script>
+    <div id="tooltip"></div>
+    <div id="tooltip-unlocked"></div>
+  </body>
+</html>
