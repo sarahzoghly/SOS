@@ -60,3 +60,16 @@
     -webkit-text-shadow: 0 0 10px rgba(0, 0, 255, 1); 
     -moz-text-shadow: 0 0 10px rgba(0, 0, 255, 1);
 }
+
+#tooltip {
+    position: fixed;
+    display: none;
+    pointer-events: none;
+    background-color: #cfcfcf;
+    color: #000024;
+    border: 1px solid rgb(0, 0, 36);
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    padding: 6px 10px;
+    font-size: 1rem;
+    z-index: 100;
+}

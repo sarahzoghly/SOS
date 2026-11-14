@@ -104,7 +104,7 @@ const start = document.getElementById('start-button')
 
 settings.addEventListener('click', () => {
   document.querySelectorAll("#title-screen").forEach(section => section.style.display = "none");
-  document.querySelectorAll("#settings").forEach(section => section.style.display = "block");
+  document.querySelectorAll("#settings").forEach(section => section.style.display = "flex");
 });
 
 about.addEventListener('click', () => {

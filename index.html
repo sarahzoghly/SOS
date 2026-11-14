@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/levels.css">
     <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/intro.css">
     <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
   </head>
   <body>
@@ -47,20 +48,73 @@
       </div>
       <div class="content">
         <h1 id="about-header">About</h1>
-        <p class="aboutGame">Orbit is a webplayable interactive story about 4 rovers:</p>
+        <p class="aboutGame">Orbit is a webplayable interactive story about 3 rovers:</p>
         <p class="aboutGame"><span style="color: rgb(190, 0, 125)">Opportunity & Spirit</span>, twins who explored <span style="color: rgb(190, 0, 125)">Mars</span>.</p>
+        <p class="aboutGame"><span style="color: rgb(190, 0, 125)">Apollo</span>, the rover that explored <span style="color: rgb(190, 0, 125)">the Moon</span>.</p>
         <p class="point-header">Credits</p>
         <p class="aboutGame"><a href="https://sarahzoghly.github.io/personal-website/" target="_blank">Sarah Ibrahim Zoghly:</a> Artist and Web Developer.</p>
         <p class="aboutGame"><a href="https://github.com/MaryomaSalah" target="_blank">Omar Ibrahim Zoghly:</a> gathering data and voiceover.</p>
         <p class="aboutGame"><a href="https://github.com/malakzain1101" target="_blank">Saif Ibrahim Zoghly:</a> voiceover and web developer.</p>        
       </div>
     </div>
+<!-- Replace your old <div id="mars-intro"> flex with everything below -->
+
+    <div class="intro-screen" id="mars-intro">
+      <button class="button book-button" id="mars-book-button"><img src="assets/images/book.png" height="30px" width="30px"></button>
+      <button class="button intro-back" id="mars-back">Back</button>
+      <h1 class="title intro-title">Spirit &amp; Opportunity</h1>
+      <img class="intro-image" src="assets/images/opportunity.jpeg">
+      <div class="intro-text">
+        <p>Two robots. One planet. A 90-day mission nobody expected them to outlive.</p>
+        <p>In January 2004, twin rovers named Spirit and Opportunity landed on opposite sides of Mars with one job: find out if the Red Planet was ever wet. They were built to last three months. Opportunity kept rolling for almost fifteen years.</p>
+        <p>Along the way came dust storms, wheels stuck in sand, and very long, very cold nights. Think you can keep two tin cans alive on a planet that really doesn't want them there?</p>
+        <p>Press Play Story to find out.</p>
+      </div>
+      <div class="intro-buttons">
+        <button class="button" id="mars-play">Play Story</button>
+        <button class="button" id="mars-test" disabled>Test</button>
+      </div>
+    </div>
+
+    <div class="book-overlay" id="mars-book">
+      <button class="button book-close" id="mars-book-close">Close</button>
+      <div class="book">
+        <div class="page"></div>
+        <div class="page"></div>
+      </div>
+    </div>
+
+    <div class="intro-screen" id="moon-intro">
+      <button class="button book-button" id="moon-book-button"><img src="assets/images/book.png" height="30px" width="30px"></button>
+      <button class="button intro-back" id="moon-back">Back</button>
+      <h1 class="title intro-title">Apollo</h1>
+      <!-- placeholder image, swap the src when you have an Apollo picture -->
+      <img class="intro-image" src="assets/images/moon.gif">
+      <div class="intro-text">
+        <p>One folding car. One very dusty Moon.</p>
+        <p>It rode to the Moon folded up like a beach chair, strapped to the side of a lander. Once unfolded, it let astronauts drive far beyond where their legs could ever take them.</p>
+        <p>No roads, no gas stations, no mechanic on call, and one rock in the wrong place can ruin your day. Think you can drive on a world where nobody has ever parked before?</p>
+        <p>Press Play Story to find out.</p>
+      </div>
+      <div class="intro-buttons">
+        <button class="button" id="moon-play">Play Story</button>
+        <button class="button" id="moon-test" disabled>Test</button>
+      </div>
+    </div>
+
+    <div class="book-overlay" id="moon-book">
+      <button class="button book-close" id="moon-book-close">Close</button>
+      <div class="book">
+        <div class="page"></div>
+        <div class="page"></div>
+      </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="module" src="src/title.js"></script>
     <script type="module" src="src/levels.js"></script>
     <script type="module" src="src/about.js"></script>
+    <script type="module" src="src/intro.js"></script>
     <script type="module" src="main.js"></script>
     <div id="tooltip"></div>
-    <div id="tooltip-unlocked"></div>
   </body>
 </html>
