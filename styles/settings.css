@@ -1,0 +1,228 @@
+/* ============================================================
+   SETTINGS SCREEN + CONFIRM BOX
+   Same palette as the rest of the game:
+   #cfcfcf (light gray), #00000f / rgb(0,0,36) (dark navy), blue glow rgba(0,0,255,1),
+   magenta rgb(190,0,125) for things that need care.
+   ============================================================ */
+
+#settings-screen{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    overflow-y: auto;
+    padding: 50px 20px 60px 20px;
+}
+
+/* opened from the menu inside a level: dim and blur the level behind it */
+#settings-screen.over-level{
+    background-color: rgba(0, 0, 15, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+#settings-title{
+    font-size: 5rem;
+}
+
+#settings-panel{
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    width: min(760px, 92vw);
+    padding: 30px 34px;
+    background-color: rgba(0, 0, 15, 0.85);
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 15px rgba(0, 0, 255, 1);
+}
+
+.setting-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.setting-row-stack{
+    padding-top: 26px;
+    border-top: 1px solid rgba(207, 207, 207, 0.25);
+}
+
+.setting-label{
+    font-size: 2rem;
+    color: #cfcfcf;
+    text-shadow: 0 0 10px rgba(0, 0, 255, 1);
+}
+
+.setting-note{
+    margin-top: 4px;
+    font-size: 1.2rem;
+    color: #8d8d9a;
+}
+
+/* ---------- on / off ---------- */
+.setting-toggle{
+    width: 140px;
+    height: 52px;
+}
+
+.setting-toggle.is-off{
+    background-color: #6e6e6e;
+    color: #2a2a2a;
+    box-shadow: none;
+}
+
+/* ---------- volume slider ---------- */
+.setting-slider{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+#volume-row.is-off{
+    opacity: 0.45;
+}
+
+#sfx-volume{
+    --fill: 70%;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 260px;
+    height: 32px;
+    background: transparent;
+    cursor: pointer;
+}
+
+#sfx-volume:disabled{
+    cursor: not-allowed;
+}
+
+#sfx-volume::-webkit-slider-runnable-track{
+    box-sizing: border-box;
+    height: 16px;
+    background: linear-gradient(to right, #4d4dff var(--fill), #00000f var(--fill));
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 6px rgba(0, 0, 255, 1);
+}
+
+#sfx-volume::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 20px;
+    height: 30px;
+    margin-top: -7px;
+    background-color: #cfcfcf;
+    border: 1px solid rgb(0, 0, 36);
+    border-radius: 0;
+    box-shadow: 0 0 8px rgba(0, 0, 255, 1);
+}
+
+#sfx-volume::-moz-range-track{
+    box-sizing: border-box;
+    height: 16px;
+    background: linear-gradient(to right, #4d4dff var(--fill), #00000f var(--fill));
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 6px rgba(0, 0, 255, 1);
+}
+
+#sfx-volume::-moz-range-thumb{
+    width: 18px;
+    height: 28px;
+    background-color: #cfcfcf;
+    border: 1px solid rgb(0, 0, 36);
+    border-radius: 0;
+    box-shadow: 0 0 8px rgba(0, 0, 255, 1);
+}
+
+#sfx-volume:focus-visible{
+    outline: 2px solid #ff6fc4;
+    outline-offset: 4px;
+}
+
+#sfx-volume-value{
+    min-width: 4ch;
+    text-align: right;
+    font-size: 1.5rem;
+    color: #cfcfcf;
+}
+
+/* ---------- the magenta "careful" button ---------- */
+.button.danger-button{
+    width: auto;
+    min-width: 190px;
+    height: 52px;
+    padding: 0 22px;
+    font-size: 1.3rem;
+    color: #cfcfcf;
+    background-color: rgb(190, 0, 125);
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 8px rgb(190, 0, 125);
+}
+
+.button.danger-button:hover{
+    background-color: #d4128f;
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 14px rgb(190, 0, 125);
+}
+
+#settings-status{
+    min-height: 1.5rem;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #cfcfcf;
+}
+
+/* ---------- confirm box ---------- */
+#confirm-overlay{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background-color: rgba(0, 0, 15, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+#confirm-box{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: min(560px, 90vw);
+    padding: 28px 34px;
+    text-align: center;
+    background-color: rgba(0, 0, 15, 0.95);
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 20px rgba(0, 0, 255, 1);
+}
+
+#confirm-title{
+    font-size: 2.4rem;
+    color: #cfcfcf;
+    text-shadow: 0 0 10px rgba(0, 0, 255, 1);
+}
+
+#confirm-text{
+    font-size: 1.3rem;
+    line-height: 1.3;
+    color: #cfcfcf;
+}
+
+#confirm-buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+#confirm-buttons .button{
+    width: auto;
+    min-width: 170px;
+    height: 52px;
+    padding: 0 18px;
+    font-size: 1.3rem;
+}

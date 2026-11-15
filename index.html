@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="styles/levels.css">
     <link rel="stylesheet" href="styles/about.css">
     <link rel="stylesheet" href="styles/intro.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/mars.css">
+    <link rel="stylesheet" href="styles/moon.css">
+    <link rel="stylesheet" href="styles/settings.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
   </head>
   <body>
     <canvas id="starfield"></canvas>
@@ -22,7 +25,8 @@
       </div>
     </div>
     <div id="levels-screen">
-        <button class="button" id="home"><img src="assets/images/home.png" height="30px" width="30px"></button>
+        <button class="button" id="home"><img src="assets/images/home.png" height="30px" width="30px" alt="Home"></button>
+        <button class="button back-button" id="levels-back" data-sfx="back">Back</button>
         <h1 class="title" id="levels-title">Where do you want to go?</h1>
         <div id="levels">
             <button class="planet" id="moon-button">
@@ -36,7 +40,8 @@
         </div>
     </div>
     <div id="about-screen">
-      <button class="button" id="home2"><img src="assets/images/home.png" height="30px" width="30px"></button>
+      <button class="button" id="home2"><img src="assets/images/home.png" height="30px" width="30px" alt="Home"></button>
+      <button class="button back-button" id="about-back" data-sfx="back">Back</button>
       <div class="sky">
         <div class="star"></div>
         <div class="star"></div>
@@ -48,20 +53,64 @@
       </div>
       <div class="content">
         <h1 id="about-header">About</h1>
-        <p class="aboutGame">Orbit is a webplayable interactive story about 3 rovers:</p>
-        <p class="aboutGame"><span style="color: rgb(190, 0, 125)">Opportunity & Spirit</span>, twins who explored <span style="color: rgb(190, 0, 125)">Mars</span>.</p>
-        <p class="aboutGame"><span style="color: rgb(190, 0, 125)">Apollo</span>, the rover that explored <span style="color: rgb(190, 0, 125)">the Moon</span>.</p>
+        <p class="aboutGame">Orbit is a webplayable interactive story about 3 rovers and a lander:</p>
+        <p class="aboutGame"><span class="hl">Opportunity &amp; Spirit</span>, twins who explored <span class="hl">Mars</span>.</p>
+        <p class="aboutGame"><span class="hl">Apollo 15's Rover</span> and its lander <span class="hl">Falcon</span>, who explored <span class="hl">the Moon</span>.</p>
+        <p class="aboutGame about-detail">Pick a world, play a story as one of its two heroes, then take the Test to see how much you remember. Every fact and picture comes from real NASA missions.</p>
+
+        <p class="point-header">The missions</p>
+        <p class="aboutGame about-detail">Spirit and Opportunity were built for a mission of about three months. Opportunity kept driving for more than 14 years. On the Moon, Apollo 15's rover carried two astronauts 27.8 km across the Hadley-Apennine region, while its lander Falcon left a science station behind.</p>
+
+        <p class="point-header">How to play</p>
+        <ul class="about-list">
+          <li>Click, or press Space or Enter, to move the story forward. Keys 1-4 pick an answer.</li>
+          <li>Every finished chapter writes a page in your book. Open it with the book button.</li>
+          <li>Finish a story to unlock its Test, then try to beat your best score.</li>
+          <li>Esc goes back (inside a story it opens the menu). Sound and progress are in Settings.</li>
+        </ul>
+
         <p class="point-header">Credits</p>
-        <p class="aboutGame"><a href="https://sarahzoghly.github.io/personal-website/" target="_blank">Sarah Ibrahim Zoghly:</a> Artist and Web Developer.</p>
-        <p class="aboutGame"><a href="https://github.com/MaryomaSalah" target="_blank">Omar Ibrahim Zoghly:</a> gathering data and voiceover.</p>
-        <p class="aboutGame"><a href="https://github.com/malakzain1101" target="_blank">Saif Ibrahim Zoghly:</a> voiceover and web developer.</p>        
+        <p class="aboutGame"><a href="https://sarahzoghly.github.io/personal-website/" target="_blank" rel="noopener noreferrer">Sarah Ibrahim Zoghly:</a> made the website.</p>
+        <p class="aboutGame"><a href="https://eg.linkedin.com/in/omarzoghly" target="_blank" rel="noopener noreferrer">Omar Ibrahim Zoghly:</a> collected the data, and made the video.</p>
+        <p class="aboutGame"><a href="https://github.com/SaifZoghly" target="_blank" rel="noopener noreferrer">Saif Ibrahim Zoghly:</a> did some coding, and is helped with the video.</p>
+
+        <p class="point-header">Sources for the Moon level</p>
+        <p class="aboutGame about-source">The facts and pictures in the Apollo 15 level come from NASA:</p>
+        <p class="aboutGame about-source"><a href="https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C" target="_blank" rel="noopener noreferrer">NSSDCA: Apollo 15 Lunar Module / ALSEP</a></p>
+        <p class="aboutGame about-source"><a href="https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_lrv.html" target="_blank" rel="noopener noreferrer">NSSDCA: The Apollo Lunar Roving Vehicle</a></p>
+        <p class="aboutGame about-source"><a href="https://nssdc.gsfc.nasa.gov/planetary/lunar/apollo_15_feather_drop.html" target="_blank" rel="noopener noreferrer">NSSDCA: The Apollo 15 Hammer-Feather Drop</a></p>
+        <p class="aboutGame about-source"><a href="https://www.nasa.gov/missions/apollo/apollo-15-mission-details/" target="_blank" rel="noopener noreferrer">NASA: Apollo 15 Mission Details</a></p>
+        <p class="aboutGame about-source">NASA/JPL-Caltech: the "Out-of-this-world records" driving distances graphic</p>
+
+        <p class="point-header">Sources for the Mars level</p>
+        <p class="aboutGame about-source">The facts and pictures in the Spirit and Opportunity level come from NASA:</p>
+        <p class="aboutGame about-source"><a href="https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/" target="_blank" rel="noopener noreferrer">NASA Science: Mars Exploration Rovers, Spirit and Opportunity</a></p>
+
+        <p class="point-header">Picture credits</p>
+        <p class="aboutGame about-source">Opportunity's self-portrait: NASA/JPL-Caltech/Cornell Univ./Arizona State Univ.</p>
+        <p class="aboutGame about-source">Spirit's landing site: NASA/JPL-Caltech/Cornell</p>
+        <p class="aboutGame about-source">Opportunity's landing site (the "Lion King" panorama): NASA/JPL/Cornell</p>
+        <p class="aboutGame about-source">"By the numbers" infographic and the driving records graphic: NASA/JPL-Caltech</p>
+        <p class="aboutGame about-source">Saturn 5 rocket and Lunar Roving Vehicle photographs: NASA</p>
+        <p class="aboutGame about-source">Moon and Mars globes on the Levels screen: NASA</p>
+
+        <p class="point-header">Made with</p>
+        <p class="aboutGame about-source">Plain HTML, CSS and JavaScript, plus jQuery for the starfield.</p>
+        <p class="aboutGame about-source">Font: Pixelify Sans from Google Fonts.</p>
+        <p class="aboutGame about-source">Icons: <a href="https://www.flaticon.com" title="flaticon">Flaticon</a></p>
+        <p class="point-header">Attributions</p>
+        <p class="aboutGame about-source"><a href="https://www.flaticon.com/free-icons/fullscreen" title="fullscreen icons">Fullscreen icons created by Cap Cool - Flaticon</a></p>
+        <p class="aboutGame about-source"><a href="https://www.flaticon.com/free-icons/home-button" title="home button icons">Home button icons created by Magnific - Flaticon</a></p>
+        <p class="point-header">Other Resources</p>
+        <p class="aboutGame about-source">Starfield parallax effect adapted from <a href= "https://codepen.io/easymac/pen/bGBBeE" target="_blank">codepen</a></p>
+        <p class="aboutGame about-source">Buttons glow effect adapted from <a href= "https://www.gesteves.com/blog/2010/03/26/css-glow-effects-with-box-shadow/" target="_blank">gesteves</a></p>
+        <p class="aboutGame about-source">Shooting star effect adapted from <a href= "https://www.geeksforgeeks.org/css/how-to-create-shooting-star-animation-effect-using-css/" target="_blank">Geekforgeeks</a></p>
       </div>
     </div>
-<!-- Replace your old <div id="mars-intro"> flex with everything below -->
 
     <div class="intro-screen" id="mars-intro">
-      <button class="button book-button" id="mars-book-button"><img src="assets/images/book.png" height="30px" width="30px"></button>
-      <button class="button intro-back" id="mars-back">Back</button>
+      <button class="button book-button" id="mars-book-button" data-sfx="open"><img src="assets/images/book.png" height="30px" width="30px"></button>
+      <button class="button intro-back" id="mars-back" data-sfx="back">Back</button>
       <h1 class="title intro-title">Spirit &amp; Opportunity</h1>
       <img class="intro-image" src="assets/images/opportunity.jpeg">
       <div class="intro-text">
@@ -76,24 +125,31 @@
       </div>
     </div>
 
+    <!-- ===== BOOK (replaces the old #mars-book) ===== -->
     <div class="book-overlay" id="mars-book">
-      <button class="button book-close" id="mars-book-close">Close</button>
-      <div class="book">
-        <div class="page"></div>
-        <div class="page"></div>
+      <button class="button book-close" id="mars-book-close" data-sfx="close">Close</button>
+      <div class="book-wrap">
+        <div class="book">
+          <div class="page" id="mars-page-left"></div>
+          <div class="page" id="mars-page-right"></div>
+        </div>
+        <div class="book-nav">
+          <button class="button book-turn" id="mars-book-prev">Prev</button>
+          <p id="mars-book-count"></p>
+          <button class="button book-turn" id="mars-book-next">Next</button>
+        </div>
       </div>
     </div>
 
     <div class="intro-screen" id="moon-intro">
-      <button class="button book-button" id="moon-book-button"><img src="assets/images/book.png" height="30px" width="30px"></button>
-      <button class="button intro-back" id="moon-back">Back</button>
-      <h1 class="title intro-title">Apollo</h1>
-      <!-- placeholder image, swap the src when you have an Apollo picture -->
-      <img class="intro-image" src="assets/images/moon.gif">
+      <button class="button book-button" id="moon-book-button" data-sfx="open"><img src="assets/images/book.png" height="30px" width="30px"></button>
+      <button class="button intro-back" id="moon-back" data-sfx="back">Back</button>
+      <h1 class="title intro-title">Apollo 15</h1>
+      <img class="intro-image" src="assets/images/moon/lrv-hadley-1.jpg" alt="The Apollo 15 Lunar Roving Vehicle on the Moon (NASA)">
       <div class="intro-text">
         <p>One folding car. One very dusty Moon.</p>
-        <p>It rode to the Moon folded up like a beach chair, strapped to the side of a lander. Once unfolded, it let astronauts drive far beyond where their legs could ever take them.</p>
-        <p>No roads, no gas stations, no mechanic on call, and one rock in the wrong place can ruin your day. Think you can drive on a world where nobody has ever parked before?</p>
+        <p>In July 1971, Apollo 15 landed at the foot of the Apennine mountains, near Hadley Rille. The Lunar Roving Vehicle rode there folded up in a bay on the side of the lunar module Falcon. Once unfolded, it let astronauts David Scott and James Irwin drive far beyond where their legs could ever take them.</p>
+        <p>Play as Rover or as Falcon and see the mission from two points of view: three drives, three moonwalks, a science station, and a hammer and a feather.</p>
         <p>Press Play Story to find out.</p>
       </div>
       <div class="intro-buttons">
@@ -102,18 +158,272 @@
       </div>
     </div>
 
+    <!-- ===== MOON BOOK ===== -->
     <div class="book-overlay" id="moon-book">
-      <button class="button book-close" id="moon-book-close">Close</button>
-      <div class="book">
-        <div class="page"></div>
-        <div class="page"></div>
+      <button class="button book-close" id="moon-book-close" data-sfx="close">Close</button>
+      <div class="book-wrap">
+        <div class="book">
+          <div class="page" id="moon-page-left"></div>
+          <div class="page" id="moon-page-right"></div>
+        </div>
+        <div class="book-nav">
+          <button class="button book-turn" id="moon-book-prev">Prev</button>
+          <p id="moon-book-count"></p>
+          <button class="button book-turn" id="moon-book-next">Next</button>
+        </div>
       </div>
     </div>
+
+    <!-- ===== MARS LEVEL ===== -->
+    <div id="mars-level">
+
+      <!-- top left: book + day counter -->
+      <button class="button book-button" id="mars-level-book" data-sfx="open">
+        <img src="assets/images/book.png" height="30px" width="30px">
+        <span class="new-dot" id="mars-dot"></span>
+      </button>
+      <div id="mars-day">
+        <p id="mars-day-number">DAY 0</p>
+        <p id="mars-day-date"></p>
+      </div>
+      <p id="mars-toast">New page added to your book</p>
+
+      <!-- top right: menu -->
+      <button class="button" id="mars-menu-button" data-sfx="open" aria-label="Menu"><img src="assets/images/home.png" height="30px" width="30px" alt="Menu"></button>
+      <button class="button back-button" id="level-back" data-sfx="back">Back</button>
+
+      <!-- PANE 1: choose a rover -->
+      <div class="mars-pane" id="mars-pick">
+        <h1 class="title" id="mars-pick-title">Choose your rover</h1>
+        <div id="mars-cards">
+          <div class="rover-card" id="card-opportunity">
+            <img src="assets/images/opportunity.jpeg" alt="Opportunity">
+            <h2>Opportunity</h2>
+            <p class="card-text">Lands on the flat plains of Meridiani Planum, where minerals hint at ancient water.</p>
+            <ul>
+              <li>Lasted 14+ years</li>
+              <li>Drove 28 miles (45.16 km)</li>
+              <li>217,594 raw images</li>
+            </ul>
+            <p class="card-done" id="done-opportunity">Story completed</p>
+            <button class="button pick-button" data-rover="opportunity">Play as Opportunity</button>
+          </div>
+          <div class="rover-card" id="card-spirit">
+            <img src="assets/images/mars/spirit-landing.jpg" alt="Spirit">
+            <h2>Spirit</h2>
+            <p class="card-text">Lands in Gusev Crater, a possible former lake, and climbs a hill nobody expected a rover to climb.</p>
+            <ul>
+              <li>Lasted 6 years</li>
+              <li>Drove 4.8 miles (7.7 km)</li>
+              <li>124,838 raw images</li>
+            </ul>
+            <p class="card-done" id="done-spirit">Story completed</p>
+            <button class="button pick-button" data-rover="spirit">Play as Spirit</button>
+          </div>
+        </div>
+        <!-- the Moon's cards are made by src/level.js from src/moon-data.js -->
+        <div id="moon-cards"></div>
+      </div>
+
+      <!-- PANE 2: the story stage -->
+      <div class="mars-pane" id="mars-stage">
+        <div class="stage-sun"></div>
+        <div class="stage-stars"></div>
+        <div class="stage-earth"></div>
+        <div class="stage-far"></div>
+        <div class="stage-near"></div>
+        <div class="stage-dust"></div>
+
+        <!-- the rover or the spacecraft -->
+        <div class="actor rover" id="mars-actor">
+
+          <svg id="mars-rover-svg" viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
+            <!-- legs -->
+            <g stroke="#cfcfcf" stroke-width="5" stroke-linecap="round" fill="none">
+              <path d="M62 128 L100 98"/>
+              <path d="M130 128 L100 98"/>
+              <path d="M198 128 L178 98"/>
+              <path d="M130 128 L178 98"/>
+            </g>
+            <!-- solar panel -->
+            <polygon points="36,84 224,84 246,58 58,58" fill="#0a0a3c" stroke="#cfcfcf" stroke-width="2"/>
+            <g stroke="#4d4dff" stroke-width="1.5" opacity="0.7">
+              <path d="M67 84 L89 58"/><path d="M99 84 L120 58"/><path d="M130 84 L152 58"/>
+              <path d="M161 84 L183 58"/><path d="M193 84 L215 58"/><path d="M47 71 L235 71"/>
+            </g>
+            <!-- body -->
+            <rect x="48" y="84" width="164" height="18" rx="3" fill="#cfcfcf" stroke="#00000f" stroke-width="2"/>
+            <rect x="48" y="96" width="164" height="5" fill="var(--accent, #4d4dff)"/>
+            <!-- mast and camera head -->
+            <rect x="162" y="14" width="7" height="44" fill="#e8e8e8" stroke="#00000f"/>
+            <rect x="148" y="4" width="36" height="14" rx="2" fill="#cfcfcf" stroke="#00000f" stroke-width="2"/>
+            <circle cx="158" cy="11" r="3.4" fill="#00001e" stroke="#4d4dff"/>
+            <circle cx="174" cy="11" r="3.4" fill="#00001e" stroke="#4d4dff"/>
+            <!-- antenna -->
+            <path d="M78 58 L72 36" stroke="#cfcfcf" stroke-width="3"/>
+            <ellipse cx="71" cy="33" rx="13" ry="4" fill="#cfcfcf" stroke="#00000f" transform="rotate(-20 71 33)"/>
+            <!-- arm -->
+            <path d="M212 92 L236 106 L252 94" stroke="#cfcfcf" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="212" cy="92" r="4.5" fill="var(--accent, #4d4dff)"/>
+            <circle cx="236" cy="106" r="4.5" fill="var(--accent, #4d4dff)"/>
+            <circle cx="252" cy="94" r="4.5" fill="var(--accent, #4d4dff)"/>
+            <!-- wheels -->
+            <g class="wheel"><circle cx="62" cy="128" r="20" fill="#14142a" stroke="#cfcfcf" stroke-width="4"/><path d="M62 108 L62 148 M42 128 L82 128 M48 114 L76 142" stroke="#cfcfcf" stroke-width="3"/></g>
+            <g class="wheel"><circle cx="130" cy="128" r="20" fill="#14142a" stroke="#cfcfcf" stroke-width="4"/><path d="M130 108 L130 148 M110 128 L150 128 M116 114 L144 142" stroke="#cfcfcf" stroke-width="3"/></g>
+            <g class="wheel"><circle cx="198" cy="128" r="20" fill="#14142a" stroke="#cfcfcf" stroke-width="4"/><path d="M198 108 L198 148 M178 128 L218 128 M184 114 L212 142" stroke="#cfcfcf" stroke-width="3"/></g>
+          </svg>
+
+          <svg id="mars-craft-svg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- rocket (liftoff) -->
+            <g class="part-rocket">
+              <polygon class="flame" points="84,220 116,220 100,278" fill="#ff7a1a"/>
+              <polygon class="flame" points="92,220 108,220 100,252" fill="#ffe08a"/>
+              <polygon points="76,196 56,236 76,226" fill="#8d8d9a" stroke="#00000f" stroke-width="2"/>
+              <polygon points="124,196 144,236 124,226" fill="#8d8d9a" stroke="#00000f" stroke-width="2"/>
+              <rect x="76" y="70" width="48" height="152" rx="3" fill="#cfcfcf" stroke="#00000f" stroke-width="2"/>
+              <polygon points="76,70 124,70 100,12" fill="#e8e8e8" stroke="#00000f" stroke-width="2"/>
+              <rect x="76" y="150" width="48" height="8" fill="var(--accent, #4d4dff)"/>
+              <circle cx="100" cy="110" r="9" fill="#00001e" stroke="#4d4dff" stroke-width="2"/>
+            </g>
+            <!-- capsule with cruise ring (in space) -->
+            <g class="part-capsule">
+              <rect x="20" y="148" width="160" height="22" fill="#0a0a3c" stroke="#cfcfcf" stroke-width="2"/>
+              <path d="M52 148 L52 170 M84 148 L84 170 M116 148 L116 170 M148 148 L148 170" stroke="#4d4dff" stroke-width="1.5"/>
+              <rect x="84" y="120" width="32" height="30" fill="#8d8d9a" stroke="#00000f" stroke-width="2"/>
+              <polygon points="76,172 124,172 110,214 90,214" fill="#cfcfcf" stroke="#00000f" stroke-width="2"/>
+              <rect x="76" y="172" width="48" height="5" fill="var(--accent, #4d4dff)"/>
+            </g>
+            <!-- parachute (landing) -->
+            <g class="part-chute">
+              <path d="M10 70 Q100 -30 190 70 Z" fill="#e8e8e8" stroke="#00000f" stroke-width="2"/>
+              <path d="M70 66 Q100 0 130 66" fill="none" stroke="#cfcfcf"/>
+              <path d="M10 70 L90 148 M190 70 L110 148 M100 40 L100 148" stroke="#cfcfcf" stroke-width="1.5"/>
+            </g>
+          </svg>
+        </div>
+
+        <div id="mars-tint"></div>
+        <p id="mars-banner"></p>
+
+        <!-- dialog box -->
+        <div id="mars-dialog">
+          <p id="mars-speaker"></p>
+          <p id="mars-text"></p>
+          <div id="mars-choices"></div>
+          <span id="mars-next"></span>
+        </div>
+
+        <!-- found photo / document -->
+        <div id="mars-found">
+          <div class="found-card">
+            <p class="found-title" id="found-title"></p>
+            <img id="found-img" src="" alt="">
+            <p class="found-caption" id="found-caption"></p>
+            <p class="found-hint">Click to continue</p>
+          </div>
+        </div>
+
+        <!-- chapter card / fade -->
+        <div id="mars-curtain">
+          <p id="chapter-number"></p>
+          <h2 id="chapter-title"></h2>
+          <p id="chapter-date"></p>
+          <p id="chapter-place"></p>
+        </div>
+        <div id="mars-dip"></div>
+      </div>
+
+      <!-- PANE 3: the test -->
+      <div class="mars-pane" id="mars-quiz">
+        <div id="quiz-card">
+          <div id="quiz-top">
+            <p id="quiz-progress"></p>
+            <p id="quiz-score"></p>
+          </div>
+          <div id="quiz-bar"><div id="quiz-bar-fill"></div></div>
+          <h2 id="quiz-question"></h2>
+          <div id="quiz-options"></div>
+          <p id="quiz-feedback"></p>
+          <button class="button" id="quiz-next">Next</button>
+        </div>
+        <div id="quiz-result">
+          <h1 class="title" id="quiz-result-title"></h1>
+          <p id="quiz-result-score"></p>
+          <p id="quiz-result-text"></p>
+          <p id="quiz-result-best"></p>
+          <div id="quiz-result-buttons">
+            <button class="button" id="quiz-retry">Try again</button>
+            <button class="button" id="quiz-back">Back to Mars</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- the end of the story -->
+      <div id="mars-ending">
+        <h1 class="title" id="ending-title">The End</h1>
+        <p id="ending-text"></p>
+        <button class="button" id="ending-button">Back to Mars</button>
+      </div>
+    </div>
+
+
+    <!-- ===== MENU (home, levels, settings) ===== -->
+    <div id="mars-menu">
+      <div id="menu-box">
+        <h2>Menu</h2>
+        <button class="button" id="menu-resume" data-sfx="close">Resume</button>
+        <button class="button" id="menu-home">Home</button>
+        <button class="button" id="menu-levels">Levels</button>
+        <button class="button" id="menu-settings">Settings</button>
+        <p id="menu-note"></p>
+      </div>
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div id="settings-screen">
+      <button class="button back-button" id="settings-back" data-sfx="back">Back</button>
+      <h1 class="title" id="settings-title">Settings</h1>
+      <div id="settings-panel">
+        <div class="setting-row">
+          <label class="setting-label" for="sfx-toggle">Sound effects</label>
+          <button class="button setting-toggle" id="sfx-toggle" aria-pressed="true" data-sfx="none">ON</button>
+        </div>
+        <div class="setting-row" id="volume-row">
+          <label class="setting-label" for="sfx-volume">Volume</label>
+          <div class="setting-slider">
+            <input type="range" id="sfx-volume" min="0" max="100" step="5" value="70">
+            <span id="sfx-volume-value">70%</span>
+          </div>
+        </div>
+        <div class="setting-row setting-row-stack">
+          <div class="setting-text">
+            <p class="setting-label">Progress</p>
+            <p class="setting-note" id="progress-info"></p>
+          </div>
+          <button class="button danger-button" id="restart-progress" data-sfx="none">Restart Progress</button>
+        </div>
+        <p id="settings-status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+
+    <!-- ===== CONFIRM BOX (used by Back and by Restart Progress) ===== -->
+    <div id="confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <div id="confirm-box">
+        <h2 id="confirm-title"></h2>
+        <p id="confirm-text"></p>
+        <div id="confirm-buttons">
+          <button class="button" id="confirm-no" data-sfx="back">Cancel</button>
+          <button class="button danger-button" id="confirm-yes">OK</button>
+        </div>
+      </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="module" src="src/title.js"></script>
     <script type="module" src="src/levels.js"></script>
     <script type="module" src="src/about.js"></script>
     <script type="module" src="src/intro.js"></script>
+    <script type="module" src="src/nav.js"></script>
     <script type="module" src="main.js"></script>
     <div id="tooltip"></div>
   </body>

@@ -1,0 +1,931 @@
+/* ============================================================
+   MARS LEVEL
+   Same palette as the rest of the game:
+   #cfcfcf (light gray), #00000f / rgb(0,0,36) (dark navy), blue glow rgba(0,0,255,1)
+   --accent is set by mars.js (blue for Opportunity, magenta for Spirit)
+   ============================================================ */
+
+#mars-level{
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 4;
+    --accent: #4d4dff;
+    --accent-light: #9c9cff;
+}
+
+.mars-pane{
+    display: none;
+    position: absolute;
+    inset: 0;
+}
+
+/* ---------- top bar ---------- */
+
+#mars-level .book-button{
+    z-index: 12;
+}
+
+.new-dot{
+    display: none;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: rgb(190, 0, 125);
+    border: 2px solid #cfcfcf;
+    box-shadow: 0 0 10px rgb(190, 0, 125);
+    animation: dot-pulse 1s ease-in-out infinite;
+}
+
+.has-new .new-dot{
+    display: block;
+}
+
+@keyframes dot-pulse{
+    0%, 100%{ transform: scale(1); }
+    50%{ transform: scale(1.35); }
+}
+
+#mars-day{
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 100px;
+    min-width: 190px;
+    padding: 6px 18px;
+    background-color: #cfcfcf;
+    border: 1px solid rgb(0, 0, 36);
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    color: rgb(0, 0, 36);
+    z-index: 12;
+}
+
+#mars-day-number{
+    font-size: 1.8rem;
+}
+
+#mars-day-date{
+    font-size: 1rem;
+    color: #3a3a5a;
+}
+
+#mars-menu-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 15px;
+    padding: 20px;
+    width: 30px;
+    height: 30px;
+    z-index: 12;
+}
+
+/* the Back button of the level sits to the left of the menu button */
+#level-back{
+    margin-right: 72px;
+    z-index: 12;
+}
+
+#mars-toast{
+    position: fixed;
+    top: 95px;
+    left: 15px;
+    padding: 8px 16px;
+    background-color: rgb(190, 0, 125);
+    color: #cfcfcf;
+    font-size: 1.1rem;
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 10px rgba(190, 0, 125, 1);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 12;
+}
+
+#mars-toast.show{
+    animation: toast 3.5s ease-in-out;
+}
+
+@keyframes toast{
+    0%{ opacity: 0; transform: translateY(-10px); }
+    10%, 80%{ opacity: 1; transform: translateY(0); }
+    100%{ opacity: 0; }
+}
+
+/* ---------- pick a rover ---------- */
+
+#mars-pick{
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding-top: 50px;
+    overflow-y: auto;
+}
+
+#mars-pick-title{
+    font-size: 5rem;
+}
+
+#mars-cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    padding: 0 20px 40px 20px;
+}
+
+.rover-card{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 400px;
+    max-width: 90vw;
+    padding: 20px;
+    background-color: rgba(0, 0, 15, 0.85);
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 15px rgba(0, 0, 255, 1);
+    color: #cfcfcf;
+}
+
+#card-spirit{
+    box-shadow: 0 0 15px rgb(190, 0, 125);
+}
+
+.rover-card img{
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border: 1px solid #cfcfcf;
+}
+
+.rover-card h2{
+    font-size: 2.4rem;
+    text-shadow: 0 0 10px rgba(0, 0, 255, 1);
+}
+
+#card-spirit h2{
+    text-shadow: 0 0 10px rgb(190, 0, 125);
+}
+
+.card-text{
+    font-size: 1.3rem;
+}
+
+.rover-card ul{
+    list-style: square;
+    padding-left: 24px;
+    font-size: 1.2rem;
+}
+
+.card-done{
+    display: none;
+    color: rgb(190, 0, 125);
+    font-size: 1.2rem;
+}
+
+.pick-button{
+    width: 100%;
+    height: 56px;
+    margin-top: auto;
+}
+
+/* ---------- the stage ---------- */
+
+#mars-stage{
+    overflow: hidden;
+    background: linear-gradient(var(--sky-top, #00000f), var(--sky-bottom, #000024));
+    --sky-top: #00000f;
+    --sky-bottom: #000024;
+    --far: transparent;
+    --ground: transparent;
+    --stars: 1;
+    --dust: 0;
+    --sun: 0;
+}
+
+.stage-sun{
+    position: absolute;
+    top: 14%;
+    right: 18%;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff6d8 0%, rgba(255, 246, 216, 0.5) 35%, rgba(255, 246, 216, 0) 70%);
+    opacity: var(--sun);
+}
+
+.stage-stars{
+    position: absolute;
+    inset: 0;
+    opacity: var(--stars);
+    background-image:
+        radial-gradient(2px 2px at 10% 18%, #fff, transparent),
+        radial-gradient(1px 1px at 24% 60%, #fff, transparent),
+        radial-gradient(2px 2px at 38% 28%, #cfcfff, transparent),
+        radial-gradient(1px 1px at 52% 12%, #fff, transparent),
+        radial-gradient(2px 2px at 66% 46%, #fff, transparent),
+        radial-gradient(1px 1px at 78% 22%, #cfcfff, transparent),
+        radial-gradient(2px 2px at 90% 64%, #fff, transparent),
+        radial-gradient(1px 1px at 16% 80%, #fff, transparent),
+        radial-gradient(1px 1px at 60% 74%, #fff, transparent);
+    background-size: 520px 360px;
+}
+
+.stage-far{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 26%;
+    height: 30%;
+    background: var(--far);
+    clip-path: polygon(0 62%, 8% 42%, 16% 56%, 28% 30%, 40% 52%, 55% 26%, 68% 50%, 80% 34%, 92% 56%, 100% 40%, 100% 100%, 0 100%);
+}
+
+.stage-near{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+    background: var(--ground);
+    clip-path: polygon(0 32%, 12% 20%, 30% 36%, 50% 18%, 70% 34%, 88% 22%, 100% 32%, 100% 100%, 0 100%);
+}
+
+.stage-dust{
+    position: absolute;
+    inset: 0;
+    opacity: var(--dust);
+    background: linear-gradient(90deg, rgba(190, 120, 70, 0), rgba(190, 120, 70, 0.9), rgba(190, 120, 70, 0), rgba(190, 120, 70, 0.9), rgba(190, 120, 70, 0));
+    background-size: 200% 100%;
+    animation: dust-drift 7s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes dust-drift{
+    from{ background-position: 0 0; }
+    to{ background-position: -200% 0; }
+}
+
+/* ---------- the rover / spacecraft ---------- */
+
+.actor{
+    position: absolute;
+    bottom: 26vh;
+    left: 50%;
+    width: clamp(240px, 30vw, 460px);
+    transform: translateX(-50%);
+    z-index: 2;
+    transition: left 1s ease, filter 1s ease;
+}
+
+.actor.left{ left: 28%; }
+.actor.right{ left: 72%; }
+.actor.none{ display: none; }
+
+.actor svg{
+    width: 100%;
+    display: none;
+    overflow: visible;
+}
+
+.actor.rover #mars-rover-svg{
+    display: block;
+    animation: rover-idle 2.4s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px var(--accent));
+}
+
+.actor.craft{
+    width: clamp(110px, 14vw, 200px);
+    bottom: 34vh;
+}
+
+.actor.craft #mars-craft-svg{
+    display: block;
+    filter: drop-shadow(0 0 12px var(--accent));
+}
+
+.actor.craft.launch{
+    bottom: 22vh;
+}
+
+@keyframes rover-idle{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-3px); }
+}
+
+.wheel{
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.actor.driving .wheel{
+    animation: wheel-spin 0.8s linear infinite;
+}
+
+@keyframes wheel-spin{
+    to{ transform: rotate(360deg); }
+}
+
+.actor.arrive{
+    animation: drive-in 1.6s ease-out;
+}
+
+@keyframes drive-in{
+    from{ transform: translateX(-100vw); }
+    to{ transform: translateX(-50%); }
+}
+
+.actor.stuck #mars-rover-svg{
+    transform: rotate(-9deg) translateY(14px);
+    animation: none;
+}
+
+.actor.dark{
+    filter: brightness(0.45);
+}
+
+/* craft parts: rocket, capsule, parachute */
+#mars-craft-svg g{
+    display: none;
+}
+
+.actor.craft #mars-craft-svg .part-capsule{ display: block; }
+.actor.craft.launch #mars-craft-svg .part-capsule{ display: none; }
+.actor.craft.launch #mars-craft-svg .part-rocket{ display: block; }
+.actor.craft.chute #mars-craft-svg .part-chute{ display: block; }
+.actor.craft.chute{ animation: chute-sway 2.2s ease-in-out infinite; }
+
+.actor.craft .flame{ display: none; }
+.actor.craft.lift .flame{ display: block; animation: flame-flicker 0.15s linear infinite; }
+.actor.craft.lift{ animation: lift-off 5s ease-in forwards; }
+
+@keyframes lift-off{
+    0%{ transform: translate(-50%, 0); }
+    15%{ transform: translate(calc(-50% - 3px), 0); }
+    30%{ transform: translate(calc(-50% + 3px), -4vh); }
+    100%{ transform: translate(-50%, -140vh); }
+}
+
+@keyframes flame-flicker{
+    0%{ opacity: 1; }
+    50%{ opacity: 0.6; }
+    100%{ opacity: 1; }
+}
+
+@keyframes chute-sway{
+    0%, 100%{ transform: translateX(-50%) rotate(-3deg); }
+    50%{ transform: translateX(-50%) rotate(3deg); }
+}
+
+/* ---------- meanwhile ---------- */
+
+#mars-tint{
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 60, 0.45);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+    z-index: 3;
+}
+
+#mars-stage.is-meanwhile #mars-tint{
+    opacity: 1;
+}
+
+#mars-banner{
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 24px;
+    background-color: rgba(0, 0, 15, 0.9);
+    border: 1px solid #cfcfcf;
+    color: #cfcfcf;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 255, 1);
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 5;
+    white-space: nowrap;
+}
+
+#mars-stage.is-meanwhile #mars-banner{
+    opacity: 1;
+}
+
+/* ---------- dialog box ---------- */
+
+#mars-dialog{
+    visibility: hidden;
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    width: min(1000px, 92vw);
+    min-height: 21vh;
+    max-height: 40vh;
+    overflow-y: auto;
+    padding: 16px 28px 22px 28px;
+    background-color: rgba(0, 0, 15, 0.92);
+    border: 2px solid #cfcfcf;
+    box-shadow: 0 0 15px rgba(0, 0, 255, 1);
+    z-index: 6;
+}
+
+#mars-speaker{
+    min-height: 1.6rem;
+    margin-bottom: 4px;
+    font-size: 1.5rem;
+    color: #cfcfcf;
+    text-shadow: 0 0 8px rgba(0, 0, 255, 1);
+}
+
+#mars-text{
+    font-size: 1.7rem;
+    line-height: 1.35;
+    color: #cfcfcf;
+}
+
+#mars-dialog.me #mars-speaker{
+    color: var(--accent-light);
+    text-shadow: 0 0 8px var(--accent);
+}
+
+#mars-dialog.earth #mars-speaker{
+    color: #8dd0ff;
+}
+
+#mars-dialog.narrator #mars-text{
+    font-style: italic;
+    color: #b6b5b5;
+}
+
+#mars-dialog.meanwhile{
+    border-style: dashed;
+    box-shadow: 0 0 15px rgb(190, 0, 125);
+}
+
+#mars-dialog.meanwhile #mars-speaker{
+    color: #ff6fc4;
+}
+
+#mars-choices{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.choice-button{
+    width: 100%;
+    height: auto;
+    min-height: 44px;
+    padding: 8px 16px;
+    font-size: 1.3rem;
+    text-align: left;
+}
+
+#mars-next{
+    visibility: hidden;
+    position: absolute;
+    right: 18px;
+    bottom: 10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 14px solid #cfcfcf;
+    animation: next-blink 0.9s ease-in-out infinite;
+}
+
+@keyframes next-blink{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(5px); }
+}
+
+/* ---------- found photo ---------- */
+
+#mars-found{
+    display: none;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 15, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: pointer;
+    z-index: 8;
+}
+
+.found-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: min(820px, 90vw);
+    max-height: 92vh;
+    padding: 16px 22px;
+    background-color: #cfcfcf;
+    color: rgb(0, 0, 36);
+    border: 1px solid rgb(0, 0, 36);
+    box-shadow: 0 0 20px rgba(0, 0, 255, 1);
+    animation: found-pop 0.35s ease-out;
+}
+
+@keyframes found-pop{
+    from{ transform: scale(0.85); opacity: 0; }
+    to{ transform: scale(1); opacity: 1; }
+}
+
+.found-title{
+    font-size: 1.8rem;
+}
+
+.found-card img{
+    max-width: 100%;
+    max-height: 48vh;
+    object-fit: contain;
+    border: 1px solid rgb(0, 0, 36);
+    background-color: #00000f;
+}
+
+.found-caption{
+    font-size: 1.15rem;
+    text-align: center;
+}
+
+.found-hint{
+    font-size: 1rem;
+    color: #3a3a5a;
+}
+
+/* ---------- chapter card + fade ---------- */
+
+#mars-curtain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    position: absolute;
+    inset: 0;
+    background-color: #00000f;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s;
+    cursor: pointer;
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+}
+
+#mars-curtain.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#chapter-number{
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    color: var(--accent-light);
+}
+
+#chapter-title{
+    font-size: 5rem;
+    color: #cfcfcf;
+    text-shadow: 0 0 10px rgba(0, 0, 255, 1);
+}
+
+#chapter-date{
+    font-size: 2rem;
+    color: #cfcfcf;
+}
+
+#chapter-place{
+    font-size: 1.4rem;
+    color: #8d8d9a;
+}
+
+#mars-dip{
+    position: absolute;
+    inset: 0;
+    background-color: #00000f;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s;
+    z-index: 9;
+}
+
+#mars-dip.show{
+    opacity: 1;
+}
+
+/* ---------- ending ---------- */
+
+#mars-ending{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 15, 0.96);
+    text-align: center;
+    padding: 20px;
+    z-index: 15;
+}
+
+#ending-text{
+    max-width: 800px;
+    font-size: 1.8rem;
+    color: #cfcfcf;
+    text-shadow: 0 0 10px rgba(0, 0, 255, 1);
+}
+
+#mars-ending .button{
+    min-width: 220px;
+}
+
+/* ---------- book (page turning) ---------- */
+
+.book-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 80vw;
+    max-width: 1000px;
+}
+
+.book-wrap .book{
+    width: 100%;
+}
+
+.book-nav{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#mars-book-count,
+#moon-book-count{
+    min-width: 150px;
+    text-align: center;
+    font-size: 1.3rem;
+    color: #cfcfcf;
+    text-shadow: 0 0 8px rgba(0, 0, 255, 1);
+}
+
+.book-turn{
+    width: 130px;
+    height: 48px;
+}
+
+.book-turn:disabled::after{
+    content: "";
+}
+
+.page h3{
+    font-size: 1.9rem;
+    margin-bottom: 4px;
+}
+
+.page p{
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.page .page-meta{
+    font-size: 1.05rem;
+    color: #3a3a5a;
+}
+
+.page .page-meanwhile{
+    padding-left: 10px;
+    border-left: 3px solid rgb(190, 0, 125);
+    color: #4a0a3a;
+}
+
+.page .page-empty{
+    color: #6e6e6e;
+    font-style: italic;
+}
+
+.page-images{
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.page-images img{
+    flex: 1;
+    min-width: 0;
+    max-height: 120px;
+    object-fit: cover;
+    border: 1px solid rgb(0, 0, 36);
+}
+
+.page-cover{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+}
+
+.page-cover h3{
+    font-size: 2.6rem;
+}
+
+/* ---------- menu ---------- */
+
+#mars-menu{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 15, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 30;
+}
+
+#menu-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 30px 50px;
+    background-color: rgba(0, 0, 15, 0.9);
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 20px rgba(0, 0, 255, 1);
+}
+
+#menu-box h2{
+    font-size: 3rem;
+    color: #cfcfcf;
+    text-shadow: 0 0 10px rgba(0, 0, 255, 1);
+}
+
+#menu-note{
+    min-height: 1.4rem;
+    color: #cfcfcf;
+    font-size: 1.1rem;
+}
+
+/* ---------- the test ---------- */
+
+#mars-quiz{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 70px 20px 20px 20px;
+}
+
+#quiz-card{
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    width: min(860px, 94vw);
+    padding: 24px 30px;
+    background-color: rgba(0, 0, 15, 0.9);
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 20px rgba(0, 0, 255, 1);
+    color: #cfcfcf;
+}
+
+#quiz-top{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+}
+
+#quiz-bar{
+    width: 100%;
+    height: 10px;
+    background-color: #1a1a3a;
+    border: 1px solid #cfcfcf;
+}
+
+#quiz-bar-fill{
+    width: 0;
+    height: 100%;
+    background-color: rgb(190, 0, 125);
+    transition: width 0.4s;
+}
+
+#quiz-question{
+    font-size: 2rem;
+}
+
+#quiz-options{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-option{
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    padding: 10px 16px;
+    font-size: 1.4rem;
+    text-align: left;
+}
+
+.quiz-option.correct{
+    background-color: #7dffb0;
+    border: 1px solid #00400f;
+    box-shadow: 0 0 12px #7dffb0;
+}
+
+.quiz-option.wrong{
+    background-color: rgb(190, 0, 125);
+    color: #cfcfcf;
+    border: 1px solid #cfcfcf;
+    box-shadow: 0 0 12px rgb(190, 0, 125);
+}
+
+.quiz-option:disabled,
+.quiz-option:disabled:hover{
+    cursor: default;
+}
+
+.quiz-option:disabled::after{
+    content: "";
+}
+
+.quiz-option:disabled:not(.correct):not(.wrong){
+    opacity: 0.5;
+}
+
+#quiz-feedback{
+    min-height: 1.6rem;
+    font-size: 1.3rem;
+}
+
+#quiz-next{
+    display: none;
+    align-self: flex-end;
+    min-width: 180px;
+}
+
+#quiz-result{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+}
+
+#quiz-result-title{
+    font-size: 5rem;
+}
+
+#quiz-result-score{
+    font-size: 3rem;
+    color: #cfcfcf;
+    text-shadow: 0 0 10px rgba(0, 0, 255, 1);
+}
+
+#quiz-result-text,
+#quiz-result-best{
+    max-width: 760px;
+    font-size: 1.6rem;
+    color: #cfcfcf;
+}
+
+#quiz-result-buttons{
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+#quiz-result-buttons .button{
+    min-width: 200px;
+}
+
+/* ---------- intro screen: Test button lights up when it unlocks ---------- */
+
+.unlocked-flash{
+    animation: unlock-glow 0.8s ease-in-out 4;
+}
+
+@keyframes unlock-glow{
+    0%, 100%{ box-shadow: 0 0 5px rgba(0, 0, 255, 1); }
+    50%{ box-shadow: 0 0 30px rgba(190, 0, 125, 1); transform: scale(1.06); }
+}

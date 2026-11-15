@@ -1,3 +1,5 @@
+import { openSettings } from './settings.js';
+
 var canvas = document.getElementById("starfield");
 var context = canvas.getContext("2d");
 canvas.width = document.body.clientWidth;
@@ -13,6 +15,7 @@ makeStars(DENSITY);
 window.addEventListener('resize', function() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  makeStars(DENSITY);            // spread the stars over the new size (they used to bunch up in one corner)
 });
 
 $("#starfield").mousemove(function(evt) {
@@ -21,6 +24,7 @@ $("#starfield").mousemove(function(evt) {
 });
 
 function makeStars(DENSITY) {
+  stars = {};
   var totalStars = (Math.floor(canvas.width / 72)) * (Math.floor(canvas.height / 72)) * DENSITY;
   
   var randomX, randomY, randomZ;
@@ -32,7 +36,7 @@ function makeStars(DENSITY) {
     stars[i] = [randomX, randomY, randomZ];
     sortable.push(randomZ);
   }
-  sortable.sort();
+  sortable.sort(function(a, b) { return a - b; });   // numbers need a number sort
   
   
   for (var i in stars) {
@@ -102,10 +106,8 @@ const settings = document.getElementById('settings-button')
 const about = document.getElementById('about-button')
 const start = document.getElementById('start-button')
 
-settings.addEventListener('click', () => {
-  document.querySelectorAll("#title-screen").forEach(section => section.style.display = "none");
-  document.querySelectorAll("#settings").forEach(section => section.style.display = "flex");
-});
+// the settings screen (src/settings.js) hides the title screen and brings it back on Back
+settings.addEventListener('click', () => openSettings("title"));
 
 about.addEventListener('click', () => {
   document.querySelectorAll("#title-screen").forEach(section => section.style.display = "none");

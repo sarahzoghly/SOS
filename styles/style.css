@@ -51,7 +51,7 @@ body {
 
 .button{
     width: 15vw;
-    height: 8vh;
+    height: 9vh;
     font-size: 1.5rem; 
     cursor: pointer;
     background-color: #cfcfcf;
@@ -90,4 +90,61 @@ body {
     height: 30px;
 }
 
+/* keyboard focus ring (so you can see where Tab / Enter will act) */
+.button:focus-visible,
+.planet:focus-visible{
+    outline: 2px solid #ff6fc4;
+    outline-offset: 3px;
+}
 
+/* the Back button: top right on every screen except the title screen
+   (the intro screens use .intro-back, which looks the same) */
+.back-button{
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 15px;
+    width: 120px;
+    height: 50px;
+    z-index: 10;
+}
+
+/* ---------- scroll bars in the game's colors ---------- */
+/* Firefox (and anything that only knows the standard properties) */
+*{
+    scrollbar-width: thin;
+    scrollbar-color: #cfcfcf #00000f;
+}
+
+/* Chrome, Edge and Safari: a square light-gray handle on a dark track with a blue glow */
+@supports selector(::-webkit-scrollbar){
+    *{
+        scrollbar-width: auto;
+        scrollbar-color: auto;
+    }
+
+    ::-webkit-scrollbar{
+        width: 14px;
+        height: 14px;
+    }
+
+    ::-webkit-scrollbar-track{
+        background-color: #00000f;
+        border-left: 1px solid rgba(207, 207, 207, 0.35);
+    }
+
+    ::-webkit-scrollbar-thumb{
+        background-color: #cfcfcf;
+        border: 1px solid rgb(0, 0, 36);
+        box-shadow: 0 0 6px rgba(0, 0, 255, 1);
+    }
+
+    ::-webkit-scrollbar-thumb:hover{
+        background-color: #b6b5b5;
+        box-shadow: 0 0 10px rgba(0, 0, 255, 1);
+    }
+
+    ::-webkit-scrollbar-corner{
+        background-color: #00000f;
+    }
+}

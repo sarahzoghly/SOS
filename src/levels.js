@@ -1,11 +1,17 @@
 const home = document.getElementById('home');
-
-home.addEventListener('click', () => {
-  document.querySelectorAll("#title-screen").forEach(section => section.style.display = "flex");
-  document.querySelectorAll("#levels-screen").forEach(section => section.style.display = "none");
-});
+const levelsBack = document.getElementById('levels-back');
 
 const tooltip = document.getElementById("tooltip");
+
+// Home (top left) and Back (top right) both return to the title screen
+function backToTitle() {
+  tooltip.style.display = "none";
+  document.querySelectorAll("#title-screen").forEach(section => section.style.display = "flex");
+  document.querySelectorAll("#levels-screen").forEach(section => section.style.display = "none");
+}
+
+home.addEventListener('click', backToTitle);
+levelsBack.addEventListener('click', backToTitle);
 
 const mars = document.querySelectorAll("#mars-button");
 
@@ -33,7 +39,7 @@ const moon = document.querySelectorAll("#moon-button");
 moon.forEach(planet => {
 
     planet.addEventListener("mouseenter", () => {
-        tooltip.textContent = "-Apollo-";
+        tooltip.textContent = "-Apollo 15-";
         tooltip.style.display = "flex";
     });
 

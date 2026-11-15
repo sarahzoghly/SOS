@@ -1,0 +1,150 @@
+/* ============================================================
+   MOON LEVEL (Apollo 15)
+   The Moon uses the same level screen as Mars (styles/mars.css), so this file
+   only holds what is different: Earth in the sky, the Moon's drawings
+   (src/level-art.js) and the Moon's hero cards.
+   #mars-level gets the class "world-moon" while the Moon is open.
+   ============================================================ */
+
+/* ---------- Earth in the black sky (only on the Moon's surface backdrops) ---------- */
+
+#mars-stage{
+    --earth: 0;
+}
+
+.stage-earth{
+    position: absolute;
+    top: 11%;
+    left: 20%;
+    width: clamp(48px, 5vw, 76px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    opacity: var(--earth);
+    transition: opacity 1s;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 62% 64%, rgba(255, 255, 255, 0.55) 0 13%, transparent 14%),
+        radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.8) 0 9%, transparent 10%),
+        radial-gradient(circle at 35% 30%, #8fd0ff 0%, #2f78dc 45%, #0b2b6b 100%);
+    box-shadow: 0 0 22px rgba(90, 160, 255, 0.55);
+}
+
+/* ---------- the hero cards (made by src/level.js) ---------- */
+
+#moon-cards{
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+    padding: 0 20px 40px 20px;
+}
+
+#card-falcon{
+    box-shadow: 0 0 15px rgb(190, 0, 125);
+}
+
+/* the Falcon card shows a tall rocket picture, so show its middle part */
+#card-falcon img{
+    object-position: 50% 40%;
+}
+
+#card-falcon h2{
+    text-shadow: 0 0 10px rgb(190, 0, 125);
+}
+
+/* ---------- which drawing shows on the stage ---------- */
+
+/* on the Moon the Mars rover and the Mars spacecraft are never shown */
+#mars-level.world-moon .actor.rover #mars-rover-svg,
+#mars-level.world-moon .actor.craft #mars-craft-svg{
+    display: none;
+}
+
+#mars-level.world-moon .actor.rover #moon-rover-svg{
+    display: block;
+    animation: rover-idle 2.4s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px var(--accent));
+}
+
+/* the Saturn 5 rocket is tall and thin, so it gets a narrower box */
+#mars-level.world-moon .actor.craft{
+    width: clamp(76px, 8vw, 128px);
+}
+
+#mars-level.world-moon .actor.craft #moon-craft-svg{
+    display: block;
+    filter: drop-shadow(0 0 12px var(--accent));
+}
+
+#moon-craft-svg g{
+    display: none;
+}
+
+#mars-level.world-moon .actor.craft #moon-craft-svg .part-capsule{ display: block; }
+#mars-level.world-moon .actor.craft.launch #moon-craft-svg .part-capsule{ display: none; }
+#mars-level.world-moon .actor.craft.launch #moon-craft-svg .part-rocket{ display: block; }
+
+/* ---------- the lander: Falcon ---------- */
+
+.actor.lander,
+.actor.alsep{
+    width: clamp(240px, 30vw, 460px);
+}
+
+.actor.lander #moon-lander-svg,
+.actor.alsep #moon-alsep-svg{
+    display: block;
+    filter: drop-shadow(0 0 12px var(--accent));
+}
+
+.actor.lander .lm-flame,
+.actor.lander .lm-ascent-flame{
+    display: none;
+}
+
+/* coming down on its engine */
+.actor.lander.descend{
+    animation: lm-descend 5.5s ease-out both;
+}
+
+.actor.lander.descend .lm-flame{
+    display: block;
+    animation: flame-flicker 0.15s linear infinite;
+}
+
+@keyframes lm-descend{
+    from{ transform: translate(-50%, -75vh); }
+    to{ transform: translate(-50%, 0); }
+}
+
+/* the top half flies away, the bottom half stays on the Moon */
+.actor.lander.liftoff .lm-ascent{
+    animation: lm-ascent-up 4.5s ease-in 0.5s both;
+}
+
+.actor.lander.liftoff .lm-ascent-flame{
+    display: block;
+    animation: flame-flicker 0.15s linear infinite;
+}
+
+@keyframes lm-ascent-up{
+    from{ transform: translateY(0); }
+    to{ transform: translateY(-900px); }
+}
+
+/* ---------- the ALSEP station sending data to Earth ---------- */
+
+.alsep-signal path{
+    opacity: 0;
+    animation: signal-pulse 1.8s ease-out infinite;
+}
+
+.alsep-signal path:nth-child(2){ animation-delay: 0.3s; }
+.alsep-signal path:nth-child(3){ animation-delay: 0.6s; }
+
+@keyframes signal-pulse{
+    0%{ opacity: 0; }
+    30%{ opacity: 1; }
+    100%{ opacity: 0; }
+}

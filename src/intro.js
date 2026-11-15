@@ -1,3 +1,5 @@
+import { startStory, startTest } from './level.js';
+
 // Everything the Mars and Moon intro screens need lives in this function.
 // We call it once for "mars" and once for "moon" at the bottom.
 function setupIntro(planet) {
@@ -14,23 +16,21 @@ function setupIntro(planet) {
     test.disabled = false;
   }
 
+  // "Restart Progress" (Settings) locks the Test again
+  document.addEventListener('orbit:progress-reset', () => {
+    test.disabled = true;
+  });
+
   // back button: hide this screen, show the levels screen
   back.addEventListener('click', () => {
     intro.style.display = "none";
     document.querySelectorAll("#levels-screen").forEach(section => section.style.display = "flex");
   });
 
-  play.addEventListener('click', () => {
-    // TODO: show the story here.
-    // When the story ends, call finishStory(planet) to unlock Test.
-    // For now it unlocks right away so you can see it working.
-    finishStory(planet);
-  });
+  // the level engine (src/level.js) runs both worlds and unlocks Test when a story ends
+  play.addEventListener('click', () => startStory(planet));
 
-  test.addEventListener('click', () => {
-    // TODO: go to the main level
-    console.log(`${planet} test clicked`);
-  });
+  test.addEventListener('click', () => startTest(planet));
 
   // book: open it, close it with the button, or by clicking the blurry area
   bookButton.addEventListener('click', () => {
