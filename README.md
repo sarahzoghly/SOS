@@ -2,10 +2,7 @@
 ### Team SOS
 
 <div align="center">
-  [this.webm](https://github.com/user-attachments/assets/39fb45bb-325d-4615-8546-8edb47fee95f)
-
-  <p></p>
-  <a href="https://sos-b4c.pages.dev/" target="_blank">CLICK HERE TO TRY IT OUT!</a>
+  <a href="https://sos-b4c.pages.dev/" target="_blank">CLICK HERE TO TRY ORBIT!</a>
 </div>
 
 ## Our Idea:
