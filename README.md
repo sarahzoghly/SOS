@@ -2,7 +2,7 @@
 ### Team SOS
 
 <div align="center">
-  [THAT.webm](https://github.com/user-attachments/assets/b5026d53-1d77-42a1-974c-10c368a81cbe)
+  <img width="320" height="180" alt="website" src="https://github.com/user-attachments/assets/ceb86676-226e-42df-8aaa-347b41b0d246" />
   <p></p>
   <a href="https://sos-b4c.pages.dev/" target="_blank">CLICK HERE TO TRY IT OUT!</a>
 </div>
